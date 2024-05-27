@@ -87,4 +87,23 @@ describe('todoApp', () => {
     cy.get("ul").children("li")
       .should("have.length", 0)
   })
+
+  it('kontrollerar att nyckeln och värdet finns i localStorage', () => {
+    // Act
+    cy.get("input#newTodoText").type("hejsan");
+    cy.get("button").contains("Skapa").click();
+    cy.get("input#newTodoText")
+      .should("have.value", "hejsan")
+    cy.get("ul > li")
+      .should("have.length", 1)
+      .should("have.text", "hejsan")
+
+    // Assert
+    cy.window().should((window) => {
+      const nyckel = 'myData';
+      const förväntatVärde = 'hejsan';
+      const aktuelltVärde = window.localStorage.getItem(nyckel);
+      expect(aktuelltVärde).to.equal(förväntatVärde);
+    });
+  })
 })

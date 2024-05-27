@@ -17,6 +17,9 @@ document.getElementById("clearTodos")?.addEventListener("click", () => {
     ).value;
     console.log("Todos when creating", todos);
 
+    localStorage.setItem('myData', todoText);
+    alert('Data saved to localStorage');
+
     createNewTodo(todoText, todos);
   }
 );
